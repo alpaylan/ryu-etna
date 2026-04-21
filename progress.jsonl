@@ -11,3 +11,11 @@
 {"ts":"2026-04-21T03:30:05Z","stage":"document","event":"start"}
 {"ts":"2026-04-21T03:35:00Z","stage":"document","event":"done","docs":["BUGS.md","TASKS.md"]}
 {"ts":"2026-04-21T03:35:01Z","stage":"validate","event":"start"}
+{"ts":"2026-04-21T03:40:00Z","stage":"validate","event":"check_passed","check":"1. base builds and tests"}
+{"ts":"2026-04-21T03:40:01Z","stage":"validate","event":"check_passed","check":"2. etna.toml source consistency"}
+{"ts":"2026-04-21T03:40:02Z","stage":"validate","event":"check_passed","check":"3. per-variant detection"}
+{"ts":"2026-04-21T03:40:03Z","stage":"validate","event":"check_passed","check":"4. etna binary end-to-end"}
+{"ts":"2026-04-21T03:40:04Z","stage":"validate","event":"check_passed","check":"5. docs source consistency"}
+{"ts":"2026-04-21T03:40:05Z","stage":"validate","event":"check_passed","check":"6. commits"}
+{"ts":"2026-04-21T03:40:06Z","stage":"validate","event":"check_passed","check":"7. no placeholder state"}
+{"ts":"2026-04-21T03:40:07Z","stage":"validate","event":"all_checks_passed"}
