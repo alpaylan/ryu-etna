@@ -1,0 +1,20 @@
+[workload]
+name = "ryu"
+crate = "ryu"
+description = "Fast floating point to string conversion (Ryū algorithm) — ETNA workload."
+
+[[variant]]
+name = "format32_sign_overwrite_daf6d4d_1"
+property = "format32_roundtrip"
+injection = "patch"
+patch = "patches/format32_sign_overwrite_daf6d4d_1.patch"
+source_commit = "daf6d4d13969685390878263cb158c46557915ec"
+files = ["src/pretty/mod.rs"]
+frameworks = ["proptest", "quickcheck", "crabcheck", "hegel"]
+witnesses = [
+    "witness_format32_roundtrip_case_negative_small_e_minus_3",
+    "witness_format32_roundtrip_case_negative_small_e_minus_1",
+    "witness_format32_roundtrip_case_negative_small_near_zero",
+    "witness_format32_roundtrip_case_positive_small_sanity",
+    "witness_format64_roundtrip_case_negative_small_sanity",
+]

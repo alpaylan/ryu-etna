@@ -111,6 +111,8 @@
     clippy::wildcard_imports
 )]
 
+extern crate std;
+
 mod buffer;
 mod common;
 mod d2s;
@@ -125,6 +127,8 @@ mod f2s_intrinsics;
 mod pretty;
 #[cfg(test)]
 mod tests;
+
+pub mod etna;
 
 pub use crate::buffer::{Buffer, Float};
 

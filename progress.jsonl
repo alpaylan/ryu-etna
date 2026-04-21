@@ -1,0 +1,5 @@
+{"ts":"2026-04-21T03:07:31Z","stage":"discover","event":"start"}
+{"ts":"2026-04-21T03:07:36Z","stage":"discover","event":"candidate","hash":"daf6d4d","subject":"Fix pretty negative small f32","files":2,"hunks":2}
+{"ts":"2026-04-21T03:07:36Z","stage":"discover","event":"done","commits_scanned":402,"fix_commits":1}
+{"ts":"2026-04-21T03:08:03Z","stage":"atomize","event":"start","total_candidates":1}
+{"ts":"2026-04-21T03:10:00Z","stage":"atomize","event":"variant_detected","variant":"format32_sign_overwrite_daf6d4d_1","property":"format32_roundtrip","injection":"patch","witnesses":5}
