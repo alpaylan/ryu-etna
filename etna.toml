@@ -1,20 +1,37 @@
-[workload]
 name = "ryu"
-crate = "ryu"
 description = "Fast floating point to string conversion (Ryū algorithm) — ETNA workload."
+language = "rust"
+crate = "ryu"
+base_commit = "10d25665d8e5e9320dc707104ea38f4ce84ae1c6"
 
-[[variant]]
-name = "format32_sign_overwrite_daf6d4d_1"
-property = "format32_roundtrip"
-injection = "patch"
-patch = "patches/format32_sign_overwrite_daf6d4d_1.patch"
-source_commit = "daf6d4d13969685390878263cb158c46557915ec"
+[[tasks]]
+mutations = ["format32_sign_overwrite_daf6d4d_1"]
+
+[tasks.source]
+repo = "https://github.com/dtolnay/ryu"
+commits = ["daf6d4d13969685390878263cb158c46557915ec"]
+commit_subjects = ["Fix pretty negative small f32"]
+summary = "The `-6 < kk && kk <= 0` branch of `f2s_buffered_n` wrote `'0'` to offset 0 instead of `result.offset(index)` — overwriting the leading sign byte for negative values like `-0.001234` and producing invalid decimal strings that failed to parse back."
+
+[tasks.injection]
+kind = "patch"
 files = ["src/pretty/mod.rs"]
-frameworks = ["proptest", "quickcheck", "crabcheck", "hegel"]
+locations = [{ file = "src/pretty/mod.rs" }]
+patch = "patches/format32_sign_overwrite_daf6d4d_1.patch"
+
+[tasks.bug]
+short_name = "format32_sign_overwrite"
+invariant = "Formatting a finite `f32` and parsing the result must yield the same bit pattern (sign included)."
+how_triggered = """
+In `format32`'s leading-zero branch (`-6 < kk && kk <= 0`, i.e. values in `(-1.0, -1e-6) ∪ (1e-6, 1.0)`), the mutation replaces `*result.offset(index) = b'0'` with `*result = b'0'`. For a negative input the sign byte lives at position 0, so the `'0'` write clobbers `'-'` and the written buffer becomes e.g. `"0\\0.001234"` (with a NUL at what was the old `'0'` slot) — a string that fails `f32::parse`, flipping `PropertyResult::Pass` to `Fail` for all negative f32 values whose decimal form has 0–5 leading zeros after the point.
+"""
+
+[[tasks.tasks]]
+property = "Format32Roundtrip"
 witnesses = [
-    "witness_format32_roundtrip_case_negative_small_e_minus_3",
-    "witness_format32_roundtrip_case_negative_small_e_minus_1",
-    "witness_format32_roundtrip_case_negative_small_near_zero",
-    "witness_format32_roundtrip_case_positive_small_sanity",
-    "witness_format64_roundtrip_case_negative_small_sanity",
+  { test_fn = "witness_format32_roundtrip_case_negative_small_e_minus_3" },
+  { test_fn = "witness_format32_roundtrip_case_negative_small_e_minus_1" },
+  { test_fn = "witness_format32_roundtrip_case_negative_small_near_zero" },
+  { test_fn = "witness_format32_roundtrip_case_positive_small_sanity" },
+  { test_fn = "witness_format64_roundtrip_case_negative_small_sanity" },
 ]

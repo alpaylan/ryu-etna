@@ -2,3 +2,7 @@
 /upstream
 /Cargo.lock
 /.hegel/
+/.marauders/
+/.migration-cache/
+/etna.log
+/progress.jsonl
