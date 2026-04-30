@@ -1,6 +1,7 @@
 name = "ryu"
 description = "Fast floating point to string conversion (Ryū algorithm) — ETNA workload."
 language = "rust"
+strategies = ["proptest", "quickcheck", "crabcheck", "hegel"]
 crate = "ryu"
 base_commit = "10d25665d8e5e9320dc707104ea38f4ce84ae1c6"
 
