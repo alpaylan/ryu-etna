@@ -6,3 +6,8 @@
 /.migration-cache/
 /etna.log
 /progress.jsonl
+
+# etna runtime artifacts (auto-added)
+/coverage/
+*.profraw
+/profdata/
